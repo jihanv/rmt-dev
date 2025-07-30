@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type JobItem = {
   id: number;
   badgeLetters: string;
@@ -15,4 +17,9 @@ export type JobItemProps = {
 export type JobListProps = {
   jobItems: JobItem[];
   isLoading: boolean;
+};
+
+export type SearchFormProps = {
+  searchText: string;
+  setSearchText: Dispatch<SetStateAction<string>>;
 };

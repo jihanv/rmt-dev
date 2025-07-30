@@ -1,25 +1,11 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-export default function SearchForm() {
+export default function SearchForm({ searchText, setSearchText }: {
+  searchText: string,
+  setSearchText: Dispatch<SetStateAction<string>>
+}) {
 
-  const [searchText, setSearchText] = useState("")
-  const [jobItems, setJobItems] = useState([])
-
-  useEffect(() => {
-    if (!searchText) {
-      return
-    }
-
-    const fetchData = async () => {
-      const response = await fetch(`https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`)
-      const data = await response.json()
-
-      setJobItems(data.jobItems)
-
-      console.log(jobItems)
-    }
-    fetchData()
-  }, [searchText])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

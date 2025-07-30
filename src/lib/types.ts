@@ -14,4 +14,5 @@ export type JobItemProps = {
 
 export type JobListProps = {
   jobItems: JobItem[];
+  isLoading: boolean;
 };

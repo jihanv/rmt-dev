@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Background from "./Background";
 import Container from "./Container";
 import Footer from "./Footer";
@@ -12,21 +12,17 @@ import ResultsCount from "./ResultsCount";
 import SortingControls from "./SortingControls";
 import JobList from "./JobList";
 import PaginationControls from "./PaginationControls";
-import { useJobItems } from "../lib/hooks";
+import { useActiveId, useJobItems } from "../lib/hooks";
 
 function App() {
 
   const [searchText, setSearchText] = useState("")
   const [jobItemsSliced, isLoading] = useJobItems(searchText)
 
-  useEffect(() => {
-    const handleChangeHash = () => {
-      console.log(window.location.hash.slice(1))
-    }
-    window.addEventListener("hashchange", handleChangeHash)
+  const activeId = useActiveId()
 
-    return () => { window.removeEventListener("hashchange", handleChangeHash) }
-  }, [])
+  console.log(activeId);
+
   return (
     <>
       <Background />

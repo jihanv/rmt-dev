@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Background from "./Background";
 import Container from "./Container";
 import Footer from "./Footer";
@@ -17,8 +17,16 @@ import { useJobItems } from "../lib/hooks";
 function App() {
 
   const [searchText, setSearchText] = useState("")
-
   const [jobItemsSliced, isLoading] = useJobItems(searchText)
+
+  useEffect(() => {
+    const handleChangeHash = () => {
+      console.log(window.location.hash.slice(1))
+    }
+    window.addEventListener("hashchange", handleChangeHash)
+
+    return () => { window.removeEventListener("hashchange", handleChangeHash) }
+  }, [])
   return (
     <>
       <Background />

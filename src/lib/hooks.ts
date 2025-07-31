@@ -37,12 +37,9 @@ export function useJobItems(searchText: string) {
 
   useEffect(() => {
     if (!searchText) {
-      console.log("No search text — clearing results");
       setJobItems([]);
       return;
     }
-
-    console.log(`Effect triggered for searchText: "${searchText}"`);
 
     const delayDebounce = setTimeout(() => {
       const fetchData = async () => {
@@ -52,14 +49,13 @@ export function useJobItems(searchText: string) {
             `https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`
           );
           const data = await response.json();
-          console.log("Fetched data:", data.jobItems);
           setJobItems(data.jobItems);
         } finally {
           setIsLoading(false);
         }
       };
       fetchData();
-    }, 100);
+    }, 1000);
 
     return () => {
       clearTimeout(delayDebounce);

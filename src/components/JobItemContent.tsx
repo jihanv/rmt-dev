@@ -1,31 +1,33 @@
 import { useActiveId, useOneJobItem } from "../lib/hooks";
 import BookmarkIcon from "./BookmarkIcon";
+import Spinner from "./Spinner";
 
 export default function JobItemContent() {
-
-  const activeId = useActiveId()
-  const jobItem = useOneJobItem(activeId)
-  console.log(jobItem)
+  const activeId = useActiveId();
+  const [jobItem, isLoading] = useOneJobItem(activeId);
+  console.log(jobItem);
 
   console.log(activeId);
 
+  if (isLoading) {
+    return (
+      <section className="job-details">
+        <div>
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
   if (!jobItem) {
-    return (<EmptyJobContent />)
+    return <EmptyJobContent />;
   }
 
   return (
     <section className="job-details">
       <div>
-        <img
-          src={jobItem.coverImgURL}
-          alt="#"
-        />
+        <img src={jobItem.coverImgURL} alt="#" />
 
-        <a
-          className="apply-btn"
-          href={jobItem.companyURL}
-          target="_blank"
-        >
+        <a className="apply-btn" href={jobItem.companyURL} target="_blank">
           Apply
         </a>
 
@@ -70,7 +72,9 @@ export default function JobItemContent() {
             </div>
             <ul className="qualifications__list">
               {jobItem.qualifications.map((qualification) => {
-                return (<li className="qualifications__item">{qualification}</li>)
+                return (
+                  <li className="qualifications__item">{qualification}</li>
+                );
               })}
             </ul>
           </section>
@@ -84,7 +88,7 @@ export default function JobItemContent() {
             </div>
             <ul className="reviews__list">
               {jobItem.reviews.map((review) => {
-                return (<li className="reviews__item">{review}</li>)
+                return <li className="reviews__item">{review}</li>;
               })}
             </ul>
           </section>

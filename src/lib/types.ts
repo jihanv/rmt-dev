@@ -10,8 +10,15 @@ export type JobItem = {
   daysAgo: number;
 };
 
-export type JobItemProps = {
-  jobItem: JobItem;
+export type JobItemExpanded = JobItem & {
+  description: string;
+  qualifications: string[];
+  reviews: string[];
+  duration: string;
+  salary: string;
+  location: string;
+  coverImgURL: string;
+  companyURL: string;
 };
 
 export type JobListProps = {
@@ -22,4 +29,8 @@ export type JobListProps = {
 export type SearchFormProps = {
   searchText: string;
   setSearchText: Dispatch<SetStateAction<string>>;
+};
+
+export type JobItemProps = {
+  jobItem: JobItemExpanded | null;
 };

@@ -10,13 +10,7 @@ export default function JobItemContent() {
   console.log(activeId);
 
   if (isLoading) {
-    return (
-      <section className="job-details">
-        <div>
-          <Spinner />
-        </div>
-      </section>
-    );
+    return <LoadingJobContent />;
   }
   if (!jobItem) {
     return <EmptyJobContent />;
@@ -116,6 +110,16 @@ function EmptyJobContent() {
             Start by searching for any technology your ideal job is working with
           </p>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function LoadingJobContent() {
+  return (
+    <section className="job-details">
+      <div>
+        <Spinner />
       </div>
     </section>
   );

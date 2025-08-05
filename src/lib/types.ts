@@ -32,5 +32,6 @@ export type SearchFormProps = {
 };
 
 export type JobItemProps = {
-  jobItem: JobItemExpanded | null;
+  jobItem: JobItemExpanded | null | JobItem;
+  isActive: boolean;
 };

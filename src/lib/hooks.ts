@@ -47,6 +47,7 @@ export function useOneJobItem(id: number | null) {
 export function useJobItems(searchText: string) {
   const [jobItems, setJobItems] = useState<JobItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const totalResults = jobItems.length;
 
   useEffect(() => {
     if (!searchText) {
@@ -73,5 +74,5 @@ export function useJobItems(searchText: string) {
     };
   }, [searchText]);
 
-  return [jobItems, isLoading] as const;
+  return [jobItems, isLoading, totalResults] as const;
 }

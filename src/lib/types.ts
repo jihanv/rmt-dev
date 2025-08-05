@@ -35,3 +35,7 @@ export type JobItemProps = {
   jobItem: JobItemExpanded | null | JobItem;
   isActive: boolean;
 };
+
+export type ResultsCountProps = {
+  totalResults: number;
+};

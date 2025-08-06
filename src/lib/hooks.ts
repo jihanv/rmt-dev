@@ -10,7 +10,7 @@ const fetchJobItem = async (id: number): Promise<JobItemApiResponse> => {
 };
 
 export function useOneJobItem(id: number | null) {
-  const { data, isLoading } = useQuery(
+  const { data, isInitialLoading } = useQuery(
     ["job-item", id],
     () => (id ? fetchJobItem(id) : null),
     {
@@ -21,6 +21,7 @@ export function useOneJobItem(id: number | null) {
       onError: () => {},
     }
   );
+  const isLoading = isInitialLoading;
   const jobItem = data?.jobItem;
   return { jobItem, isLoading };
 }

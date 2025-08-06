@@ -17,8 +17,6 @@ export function useActiveId() {
       window.removeEventListener("hashchange", handleHashChange);
     };
   }, []);
-  console.log("ACTIVE: " + activeId);
-
   return activeId;
 }
 
@@ -41,7 +39,7 @@ export function useOneJobItem(id: number | null) {
     fetchData();
   }, [id]);
 
-  return [jobItem, isLoading] as const;
+  return { jobItem, isLoading };
 }
 
 export function useJobItems(searchText: string) {
@@ -54,25 +52,32 @@ export function useJobItems(searchText: string) {
       setJobItems([]);
       return;
     }
-
-    const delayDebounce = setTimeout(() => {
-      const fetchData = async () => {
-        setIsLoading(true);
-        try {
-          const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
-          const data = await response.json();
-          setJobItems(data.jobItems);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      fetchData();
-    }, 1000);
-
-    return () => {
-      clearTimeout(delayDebounce);
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
+        const data = await response.json();
+        setJobItems(data.jobItems);
+      } finally {
+        setIsLoading(false);
+      }
     };
+    fetchData();
   }, [searchText]);
 
-  return [jobItems, isLoading, totalResults] as const;
+  return { jobItems, isLoading, totalResults };
+}
+
+export function useDebounce(value, delay) {
+  console.log(value);
+  const [debounceValue, setDebounceValue] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebounceValue(value);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [value]);
+  return debounceValue;
 }

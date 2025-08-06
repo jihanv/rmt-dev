@@ -68,7 +68,7 @@ export function useJobItems(searchText: string) {
   return { jobItems, isLoading, totalResults };
 }
 
-export function useDebounce(value, delay) {
+export function useDebounce<T>(value: T, delay = 500): T {
   console.log(value);
   const [debounceValue, setDebounceValue] = useState(value);
 
@@ -78,6 +78,6 @@ export function useDebounce(value, delay) {
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [value]);
+  }, [value, delay]);
   return debounceValue;
 }

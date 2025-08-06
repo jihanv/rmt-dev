@@ -39,3 +39,8 @@ export type JobItemProps = {
 export type ResultsCountProps = {
   totalResults: number;
 };
+
+export type JobItemApiResponse = {
+  public: boolean;
+  jobItem: JobItemExpanded;
+};

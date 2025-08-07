@@ -13,6 +13,7 @@ import SortingControls from "./SortingControls";
 import JobList from "./JobList";
 import PaginationControls from "./PaginationControls";
 import { useDebounce, useJobItems } from "../lib/hooks";
+import { Toaster } from "react-hot-toast";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
         <JobItemContent />
       </Container>
       <Footer />
+      <Toaster position="top-right" />
     </>
 
   );

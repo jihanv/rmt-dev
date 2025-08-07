@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { JobItem, JobItemApiResponse, JobItemsApiResponse } from "./types";
+import { JobItemApiResponse, JobItemsApiResponse } from "./types";
 import { BASE_API_URL } from "./constants";
 import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const fetchJobItem = async (id: number): Promise<JobItemApiResponse> => {
   const response = await fetch(`${BASE_API_URL}/${id}`);
@@ -24,7 +25,7 @@ export function useOneJobItem(id: number | null) {
       retry: false,
       enabled: Boolean(id),
       onError: (error) => {
-        console.log(error);
+        toast.error(error.message);
       },
     }
   );
@@ -32,31 +33,6 @@ export function useOneJobItem(id: number | null) {
   const jobItem = data?.jobItem;
   return { jobItem, isLoading };
 }
-
-// export function useJobItems(searchText: string) {
-//   const [jobItems, setJobItems] = useState<JobItem[]>([]);
-//   const [isLoading, setIsLoading] = useState(false);
-
-//   useEffect(() => {
-//     if (!searchText) {
-//       setJobItems([]);
-//       return;
-//     }
-//     const fetchData = async () => {
-//       setIsLoading(true);
-//       try {
-//         const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
-//         const data = await response.json();
-//         setJobItems(data.jobItems);
-//       } finally {
-//         setIsLoading(false);
-//       }
-//     };
-//     fetchData();
-//   }, [searchText]);
-
-//   return { jobItems, isLoading };
-// }
 
 const fetchJobItems = async (
   searchText: string
@@ -82,6 +58,7 @@ export function useJobItems(searchText: string) {
       enabled: Boolean(searchText),
       onError: (error) => {
         console.log(error);
+        toast.error(error.message);
       },
     }
   );

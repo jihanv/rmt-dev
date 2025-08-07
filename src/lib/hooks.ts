@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { JobItem, JobItemApiResponse } from "./types";
+import { JobItem, JobItemApiResponse, JobItemsApiResponse } from "./types";
 import { BASE_API_URL } from "./constants";
 import { useQuery } from "@tanstack/react-query";
 
@@ -33,30 +33,61 @@ export function useOneJobItem(id: number | null) {
   return { jobItem, isLoading };
 }
 
+// export function useJobItems(searchText: string) {
+//   const [jobItems, setJobItems] = useState<JobItem[]>([]);
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   useEffect(() => {
+//     if (!searchText) {
+//       setJobItems([]);
+//       return;
+//     }
+//     const fetchData = async () => {
+//       setIsLoading(true);
+//       try {
+//         const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
+//         const data = await response.json();
+//         setJobItems(data.jobItems);
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
+//     fetchData();
+//   }, [searchText]);
+
+//   return { jobItems, isLoading };
+// }
+
+const fetchJobItems = async (
+  searchText: string
+): Promise<JobItemsApiResponse> => {
+  const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.description);
+  }
+  const data = await response.json();
+  return data;
+};
+
 export function useJobItems(searchText: string) {
-  const [jobItems, setJobItems] = useState<JobItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const totalResults = jobItems.length;
-
-  useEffect(() => {
-    if (!searchText) {
-      setJobItems([]);
-      return;
+  const { data, isInitialLoading } = useQuery(
+    ["job-items", searchText],
+    () => (searchText ? fetchJobItems(searchText) : null),
+    {
+      staleTime: 1000 * 60 * 60,
+      refetchOnWindowFocus: false,
+      retry: false,
+      enabled: Boolean(searchText),
+      onError: (error) => {
+        console.log(error);
+      },
     }
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
-        const data = await response.json();
-        setJobItems(data.jobItems);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, [searchText]);
-
-  return { jobItems, isLoading, totalResults };
+  );
+  const isLoading = isInitialLoading;
+  const jobItems = data?.jobItems;
+  return { jobItems, isLoading };
 }
 
 export function useDebounce<T>(value: T, delay = 500): T {

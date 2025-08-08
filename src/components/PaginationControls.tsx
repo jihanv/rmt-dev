@@ -6,16 +6,16 @@ type PaginationControlsProps = {
 }
 
 type PaginationButtonProps = PaginationControlsProps & {
-  onClick: () => void,
-  direction: string;
+  onClick: () => void;
+  direction: "next" | "previous";
 }
 
 export default function PaginationControls({ onClick, currentPage }: PaginationControlsProps) {
   return <section className="pagination">
-    <PaginationButton
+    {currentPage > 1 && <PaginationButton
       direction="previous"
       currentPage={currentPage}
-      onClick={() => onClick("previous")} />
+      onClick={() => onClick("previous")} />}
     <PaginationButton
       direction="next"
       currentPage={currentPage}
@@ -26,7 +26,7 @@ export default function PaginationControls({ onClick, currentPage }: PaginationC
 
 function PaginationButton({ direction, currentPage, onClick }: PaginationButtonProps) {
   return (
-    <button onClick={onClick} className="pagination__button">
+    <button onClick={onClick} className={`pagination__button pagination__button--${direction}`}>
       {direction === "previous" &&
         <>
           <ArrowLeftIcon />

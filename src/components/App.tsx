@@ -50,7 +50,7 @@ function App() {
             <SortingControls />
           </SidebarTop>
           <JobList jobItems={jobItemsSliced} isLoading={isLoading} />
-          <PaginationControls handleChangePage={handleChangePage} currentPage={currentPage} />
+          <PaginationControls onClick={handleChangePage} currentPage={currentPage} />
         </Sidebar>
         <JobItemContent />
       </Container>

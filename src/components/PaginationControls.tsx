@@ -1,11 +1,16 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 
-export default function PaginationControls() {
+type PaginationControlsProps = {
+  handleChangePage: (direction: string) => void,
+  currentPage: number
+}
+
+export default function PaginationControls({ handleChangePage, currentPage }: PaginationControlsProps) {
   return <section className="pagination">
-    <button className="pagination__button">
+    <button onClick={() => handleChangePage("previous")} className="pagination__button">
       <ArrowLeftIcon />
-      Page 1</button>
-    <button className="pagination__button">Page 3
+      Page {currentPage - 1}</button>
+    <button onClick={() => handleChangePage("next")} className="pagination__button">Page {currentPage + 1}
       <ArrowRightIcon /></button>
 
   </section>;

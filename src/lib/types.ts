@@ -52,7 +52,7 @@ export type JobItemsApiResponse = {
 };
 
 export type PaginationControlsProps = {
-  onClick: (direction: string) => void;
+  onClick: (direction: PageDirection) => void;
   currentPage: number;
   totalNumberOfPages: number;
 };
@@ -60,7 +60,7 @@ export type PaginationControlsProps = {
 export type PaginationButtonProps = {
   onClick: () => void;
   currentPage: number;
-  direction: "next" | "previous";
+  direction: PageDirection;
 };
 
 export type SortBy = "relevant" | "recent";
@@ -69,3 +69,5 @@ export type SortingControlProps = {
   handleSortBy: (newSort: SortBy) => void;
   sortBy: SortBy;
 };
+
+export type PageDirection = "next" | "previous";

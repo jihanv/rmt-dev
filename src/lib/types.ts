@@ -50,3 +50,22 @@ export type JobItemsApiResponse = {
   sorted: boolean;
   jobItems: JobItem[];
 };
+
+export type PaginationControlsProps = {
+  onClick: (direction: string) => void;
+  currentPage: number;
+  totalNumberOfPages: number;
+};
+
+export type PaginationButtonProps = {
+  onClick: () => void;
+  currentPage: number;
+  direction: "next" | "previous";
+};
+
+export type SortBy = "relevant" | "recent";
+
+export type SortingControlProps = {
+  handleSortBy: (newSort: SortBy) => void;
+  sortBy: SortBy;
+};

@@ -22,8 +22,10 @@ function App() {
   const { jobItems, isLoading } = useJobItems(debounceSearch)
   const [currentPage, setCurrentPage] = useState(1)
 
+
   const totalResults = jobItems?.length || 0
-  const jobItemsSliced = jobItems?.slice(0, 7) || []
+  const totalNumberOfPages = totalResults / 7
+  const jobItemsSliced = jobItems?.slice(currentPage * 7 - 7, currentPage * 7) || []
 
   const handleChangePage = (direction: string) => {
     if (direction === "next") {
@@ -50,7 +52,7 @@ function App() {
             <SortingControls />
           </SidebarTop>
           <JobList jobItems={jobItemsSliced} isLoading={isLoading} />
-          <PaginationControls onClick={handleChangePage} currentPage={currentPage} />
+          <PaginationControls onClick={handleChangePage} currentPage={currentPage} totalNumberOfPages={totalNumberOfPages} />
         </Sidebar>
         <JobItemContent />
       </Container>

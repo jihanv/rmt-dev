@@ -94,7 +94,10 @@ export function useActiveId() {
   return activeId;
 }
 
-export function useLocalStorage(key: string, initialValue) {
+export function useLocalStorage<T>(
+  key: string,
+  initialValue: T
+): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [value, setValue] = useState(() =>
     JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue))
   );

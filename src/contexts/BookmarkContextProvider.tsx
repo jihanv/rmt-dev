@@ -11,7 +11,7 @@ type BookmarkContextValue = {
 export const BookmarksContext = createContext<BookmarkContextValue | null>(null)
 export default function BookmarkContextProvider({ children }: BookmarkContextProviderProps) {
 
-    const [bookmarkedIds, setBookmarkedIds] = useLocalStorage("bookmarkedIds", "[]")
+    const [bookmarkedIds, setBookmarkedIds] = useLocalStorage<number[]>("bookmarkedIds", [])
 
     const handleToggleBookmark = (id: number) => {
         if (bookmarkedIds.includes(id)) {

@@ -12,6 +12,7 @@ export default function BookmarkIcon({ id }: BookmarkIconProps) {
 
   const { bookmarkedIds, handleToggleBookmark } = context;
 
+
   return (
     <button onClick={(e) => {
       handleToggleBookmark(id);

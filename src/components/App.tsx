@@ -32,6 +32,7 @@ function App() {
       return a.daysAgo - b.daysAgo
     }
   })
+
   const totalResults = jobItems?.length || 0
   const totalNumberOfPages = totalResults / RESULTS_PER_PAGE
   const jobItemsSliced = jobsItemsSorted?.slice(currentPage * RESULTS_PER_PAGE - RESULTS_PER_PAGE, currentPage * RESULTS_PER_PAGE) || []
@@ -45,8 +46,8 @@ function App() {
   }
 
   const handleSortBy = (newSort: SortBy) => {
-    console.log(newSort)
-    setSortBy(newSort)
+    setSortBy(newSort);
+    setCurrentPage(1);
   }
 
   return (

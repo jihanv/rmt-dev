@@ -71,3 +71,9 @@ export type SortingControlProps = {
 };
 
 export type PageDirection = "next" | "previous";
+
+export type SortingButtonProps = {
+  children: React.ReactNode;
+  isActive: boolean;
+  onClick: () => void;
+};

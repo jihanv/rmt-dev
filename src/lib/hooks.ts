@@ -63,7 +63,7 @@ export function useJobItems(searchText: string) {
 }
 
 export function useDebounce<T>(value: T, delay = 500): T {
-  console.log(value);
+  value;
   const [debounceValue, setDebounceValue] = useState(value);
 
   useEffect(() => {

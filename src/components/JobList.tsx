@@ -21,5 +21,3 @@ export function JobList({ jobItems, isLoading }: JobListProps) {
 }
 
 export default JobList;
-
-// To get the active id, get the the useActiveId()

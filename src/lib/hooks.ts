@@ -93,3 +93,15 @@ export function useActiveId() {
   }, []);
   return activeId;
 }
+
+export function useLocalStorage(key: string, initialValue) {
+  const [value, setValue] = useState(() =>
+    JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue))
+  );
+
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [value, key]);
+
+  return [value, setValue] as const;
+}

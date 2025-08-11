@@ -77,3 +77,11 @@ export type SortingButtonProps = {
   isActive: boolean;
   onClick: () => void;
 };
+
+export type BookmarkContextProviderProps = {
+  children: React.ReactNode;
+};
+export type BookmarkContextValue = {
+  bookmarkedIds: number[];
+  handleToggleBookmark: (id: number) => void;
+};

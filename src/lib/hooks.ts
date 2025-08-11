@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { JobItemApiResponse, JobItemsApiResponse } from "./types";
 import { BASE_API_URL } from "./constants";
 import { useQuery } from "@tanstack/react-query";
 import { handleError } from "./utils";
+import { BookmarksContext } from "../contexts/BookmarkContextProvider";
 
 const fetchJobItem = async (id: number): Promise<JobItemApiResponse> => {
   const response = await fetch(`${BASE_API_URL}/${id}`);
@@ -107,4 +108,14 @@ export function useLocalStorage<T>(
   }, [value, key]);
 
   return [value, setValue] as const;
+}
+
+//------------------------------------------------
+
+export function useBookmarksContextProvider() {
+  const context = useContext(BookmarksContext);
+  if (!context)
+    throw new Error("BookmarkIcon must be used within BookmarkContextProvider");
+
+  return context;
 }

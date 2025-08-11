@@ -1,13 +1,8 @@
 import { createContext } from "react"
 import { useLocalStorage } from "../lib/hooks";
+import { BookmarkContextProviderProps, BookmarkContextValue } from "../lib/types";
 
-type BookmarkContextProviderProps = {
-    children: React.ReactNode
-}
-type BookmarkContextValue = {
-    bookmarkedIds: number[];
-    handleToggleBookmark: (id: number) => void;
-};
+
 export const BookmarksContext = createContext<BookmarkContextValue | null>(null)
 export default function BookmarkContextProvider({ children }: BookmarkContextProviderProps) {
 

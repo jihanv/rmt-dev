@@ -84,4 +84,6 @@ export type BookmarkContextProviderProps = {
 export type BookmarkContextValue = {
   bookmarkedIds: number[];
   handleToggleBookmark: (id: number) => void;
+  bookmarkedJobItems: JobItem[];
+  isLoading: boolean;
 };

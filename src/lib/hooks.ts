@@ -1,5 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { JobItemApiResponse, JobItemsApiResponse } from "./types";
+import {
+  JobItemApiResponse,
+  JobItemExpanded,
+  JobItemsApiResponse,
+} from "./types";
 import { BASE_API_URL } from "./constants";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { handleError } from "./utils";
@@ -60,7 +64,7 @@ export function useJobItems(ids: number[]) {
   });
   const jobItems = results
     .map((result) => result.data?.jobItem)
-    .filter((jobItem) => jobItem !== undefined);
+    .filter((jobItem) => jobItem !== undefined) as JobItemExpanded[];
 
   const isLoading = results.some((results) => results.isLoading);
   return { jobItems, isLoading };

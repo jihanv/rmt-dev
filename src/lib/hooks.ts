@@ -8,6 +8,7 @@ import { BASE_API_URL } from "./constants";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { handleError } from "./utils";
 import { BookmarksContext } from "../contexts/BookmarkContextProvider";
+import { ActiveIdContext } from "../contexts/ActiveIdContextProvider";
 
 const fetchJobItem = async (id: number): Promise<JobItemApiResponse> => {
   const response = await fetch(`${BASE_API_URL}/${id}`);
@@ -139,7 +140,19 @@ export function useLocalStorage<T>(
 export function useBookmarksContextProvider() {
   const context = useContext(BookmarksContext);
   if (!context)
-    throw new Error("BookmarkIcon must be used within BookmarkContextProvider");
+    throw new Error(
+      "useBookmarksContextProvider must be used within BookmarkContextProvider"
+    );
+
+  return context;
+}
+
+export function useActiveIdContextProvider() {
+  const context = useContext(ActiveIdContext);
+  if (!context)
+    throw new Error(
+      "useActiveIdContext must be used within BookmarkContextProvider"
+    );
 
   return context;
 }

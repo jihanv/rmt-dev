@@ -81,9 +81,17 @@ export type SortingButtonProps = {
 export type BookmarkContextProviderProps = {
   children: React.ReactNode;
 };
+
+export type ActiveIdContextProviderProps = {
+  children: React.ReactNode;
+};
 export type BookmarkContextValue = {
   bookmarkedIds: number[];
   handleToggleBookmark: (id: number) => void;
   bookmarkedJobItems: JobItemExpanded[];
   isLoading: boolean;
+};
+
+export type ActiveIdContext = {
+  activeId: number | null;
 };

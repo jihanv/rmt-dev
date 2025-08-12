@@ -1,17 +1,19 @@
-// import { useEffect, useState } from "react";
-import { SearchFormProps } from "../lib/types";
+import { useSearchTextContextProvider } from "../lib/hooks";
 
-export default function SearchForm({
-  searchText,
-  setSearchText,
-}: SearchFormProps) {
+// import { useEffect, useState } from "react";
+export default function SearchForm() {
+
+
+  const { searchText, handleChangeSearchText } = useSearchTextContextProvider();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
+    handleChangeSearchText(e.target.value);
   };
+
   return (
     <form onSubmit={(e) => handleSubmit(e)} action="#" className="search">
       <button type="submit">

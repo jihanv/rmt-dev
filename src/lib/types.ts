@@ -28,7 +28,7 @@ export type JobListProps = {
 
 export type SearchFormProps = {
   searchText: string;
-  setSearchText: Dispatch<SetStateAction<string>>;
+  onChangeSearch: Dispatch<SetStateAction<string>>;
 };
 
 export type JobItemProps = {
@@ -92,6 +92,10 @@ export type BookmarkContextValue = {
   isLoading: boolean;
 };
 
-export type ActiveIdContext = {
+export type ActiveIdContextValue = {
+  activeId: number | null;
+};
+
+export type JobItemsContextValue = {
   activeId: number | null;
 };

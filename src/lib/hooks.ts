@@ -9,6 +9,8 @@ import { useQueries, useQuery } from "@tanstack/react-query";
 import { handleError } from "./utils";
 import { BookmarksContext } from "../contexts/BookmarkContextProvider";
 import { ActiveIdContext } from "../contexts/ActiveIdContextProvider";
+import { SearchTextContext } from "../contexts/SearchTextContextProvider";
+import { JobItemsContext } from "../contexts/JobItemsContextProvider";
 
 const fetchJobItem = async (id: number): Promise<JobItemApiResponse> => {
   const response = await fetch(`${BASE_API_URL}/${id}`);
@@ -151,7 +153,27 @@ export function useActiveIdContextProvider() {
   const context = useContext(ActiveIdContext);
   if (!context)
     throw new Error(
-      "useActiveIdContext must be used within BookmarkContextProvider"
+      "useActiveIdContext must be used within ActiveIdContextProvider"
+    );
+
+  return context;
+}
+
+export function useSearchTextContextProvider() {
+  const context = useContext(SearchTextContext);
+  if (!context)
+    throw new Error(
+      "useSearchTextContextProvider must be used within SearchTextContextProvider"
+    );
+
+  return context;
+}
+
+export function useJobItemsContextProvider() {
+  const context = useContext(JobItemsContext);
+  if (!context)
+    throw new Error(
+      "useJobItemsContextProvider must be used within JobItemsContextProvider"
     );
 
   return context;

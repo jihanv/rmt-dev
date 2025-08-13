@@ -122,21 +122,45 @@ export function useActiveId() {
   return activeId;
 }
 
+// export function useLocalStorage<T>(
+//   key: string,
+//   initialValue: T
+// ): [T, React.Dispatch<React.SetStateAction<T>>] {
+//   const [value, setValue] = useState(() =>
+//     JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue))
+//   );
+
+//   useEffect(() => {
+//     localStorage.setItem(key, JSON.stringify(value));
+//   }, [value, key]);
+
+//   return [value, setValue] as const;
+// }
+
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
-  const [value, setValue] = useState(() =>
-    JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue))
-  );
-
+  const [value, setValue] = useState<T>(() => {
+    if (typeof window === "undefined") return initialValue; // SSR-safe
+    try {
+      const raw = localStorage.getItem(key);
+      return raw !== null ? (JSON.parse(raw) as T) : initialValue;
+    } catch {
+      // corrupted value or JSON parse error
+      return initialValue;
+    }
+  });
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [value, key]);
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // storage may be full / denied — ignore
+    }
+  }, [key, value]);
 
-  return [value, setValue];
+  return [value, setValue]; // <-- no "as const"
 }
-
 //------------------------------------------------
 
 export function useBookmarksContextProvider() {

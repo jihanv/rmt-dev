@@ -134,7 +134,7 @@ export function useLocalStorage<T>(
     localStorage.setItem(key, JSON.stringify(value));
   }, [value, key]);
 
-  return [value, setValue] as const;
+  return [value, setValue];
 }
 
 //------------------------------------------------

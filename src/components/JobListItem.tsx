@@ -4,7 +4,7 @@ import BookmarkIcon from "./BookmarkIcon";
 export default function JobListItem({ jobItem, isActive }: JobItemProps) {
 
   if (!jobItem) {
-    return
+    return null
   }
   return (
     <li className={`job-item ${isActive ? "job-item--active" : ""}`}>
